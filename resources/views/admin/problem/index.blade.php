@@ -11,6 +11,7 @@
             <a href=" {{ route('problem.create') }} " class="btn-shadow">Add Problem</a>
         </div>
 
+
         <table class="table-auto w-full text-left">
             <thead>
                 <tr>
