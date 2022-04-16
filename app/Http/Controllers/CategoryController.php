@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\MockObject\Stub\ReturnStub;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.category.index')->with([
+            'categoris' => Category::orderBy('name', 'ASC')->paginate(5)
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -35,7 +39,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate( [
+            'name' => ['required', 'max:255', 'string'],
+
+        ] );
+
+        Category::create( [
+            'name' => $request->name,
+            'slug' => Str::slug( $request->name ),
+        ] );
+
+        return redirect()->route( 'category.index' )->with('success', 'Category Created');
     }
 
     /**
@@ -57,7 +71,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit')->with([
+            'category' =>$category,
+        ]);
     }
 
     /**
@@ -69,7 +85,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate( [
+            'name' => ['required', 'max:255', 'string'],
+
+        ] );
+
+        $category->update( [
+            'name' => $request->name,
+            'slug' => Str::slug( $request->name ),
+        ] );
+
+        return redirect()->route( 'category.index' )->with('success', 'Category Created');
     }
 
     /**
@@ -80,6 +106,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route( 'category.index' )->with('success', 'Category Deleted');
     }
 }

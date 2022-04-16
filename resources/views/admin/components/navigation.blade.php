@@ -3,8 +3,12 @@
 
     <!-- logo -->
     <div class="flex-none w-56 flex flex-row items-center">
-      <img src="{{asset('admin/img/logo.jpg')}}" class="w-16 flex-none">
-      <strong class="capitalize ml-1 flex-1 text-red-600 text-2xl "> {{ env('APP_NAME') }} </strong>
+     <a href=" {{ route('dashboard') }} " class="flex items-center">
+         <img src="{{asset('admin/img/logo.jpg')}}" class="w-16 flex-none">
+         <strong class="capitalize ml-1 flex-1 text-red-600 text-2xl "> {{ env('APP_NAME') }} </strong>
+
+
+    </a>
 
       <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
         <i class="fad fa-list-ul"></i>

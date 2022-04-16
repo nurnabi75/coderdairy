@@ -25,10 +25,11 @@
             <tbody class="text-gray-600">
                 @forelse ($problems as $problem)
                 <tr>
+
                     <td class="border border-l-0 border-b-0 px-4 py-2"><a href=" {{ route('problem.show', $problem) }} " class="hover:text-teal-600">{{ $problem->name }}</a></td>
                     <td class="border border-l-0 border-b-0 px-4 py-2 capitalize"> {{ $problem->visibility }} </td>
-                    <td class="border border-l-0 border-b-0 px-4 py-2 capitalize"> {{ $problem->category->name }} </td>
-                    <td class="border border-l-0 border-b-0 px-4 py-2 capitalize">  </td>
+                    <td class="border border-l-0 border-b-0 px-4 py-2 capitalize"> {{ optional($problem->category)->name }} </td>
+                    <td class="border border-l-0 border-b-0 px-4 py-2 capitalize">Vue</td>
                     <td class="border border-l-0 border-b-0 px-4 py-2 capitalize flex space-x-2 text-xs">
                         <a href="#" class="btn-bs-primary">Edit</a>
                         <a href="#" class="btn-bs-success">View</a>

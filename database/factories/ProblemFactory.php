@@ -19,11 +19,13 @@ class ProblemFactory extends Factory
     public function definition()
     {
         $name =$this->faker->sentence(rand(5,10));
+        $description =$this->faker->sentence(rand(5,10));
         $visibility =['public', 'private'];
         return [
             'name' => $name,
             'slug' => Str::slug($name),
             'visibility' => $visibility[rand(0,1)],
+            'description' => $description,
             'user_id' => '1',
             'category_id' => Category::all()->random()->id,
         ];

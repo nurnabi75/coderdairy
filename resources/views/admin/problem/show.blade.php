@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="flex flex-col">
-                    <h1 class="font-semibold">Category</h1>
+                    <h1 class="font-semibold">{{ $problem->category->name }}</h1>
                     <p class="text-xs bg-indigo-600 text-white text-center mb-2">Laravel</p>
                 </div>
 
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="flex flex-col">
-                    <h1 class="font-semibold">Visivility</h1>
+                    <h1 class="font-semibold"> {{ $problem->visibility}} </h1>
                     <p class="text-xs bg-yellow-600 text-white mr-3">active</p>
                 </div>
 
@@ -95,9 +95,8 @@
         <div class="card-body grid grid-cols-2 gap-6 lg:grid-cols-1">
 
             <div class="p-8">
-                <h1 class=""> Problem detils <i class="fa fa-caret-down"></i></h1>
-                <p class="text-black font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Ea quibusdam fugit et velit, sunt doloribus minus dolorum ratione facere! Fugiat.</p>
+                <h1 class="">  <i class="fa fa-caret-down">Problem</i></h1>
+                <p class="text-black font-medium"> {{ $problem->description }} </p>
                 <a href="#" class="btn-shadow mt-6">view more details <i class="fa fa-caret-right"></i></a>
             </div>
 
