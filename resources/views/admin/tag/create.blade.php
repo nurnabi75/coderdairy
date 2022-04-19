@@ -7,7 +7,7 @@
          <!-- Start Recent Sales -->
     <div class="card col-span-4 xl:col-span-1 ">
         <div class="card-header flex justify-between">
-            Create Problems
+            Create Tag
             <a href="{{ route('tag.index') }}" class="btn-shadow">Back</a>
         </div>
 
@@ -28,7 +28,7 @@
                         <div class="mt-6 flex">
                            <div class=" flex-1 mr-4">
                             <label for="name" class="cursor-pointer block text-sm mb-1
-                            ">category</label>
+                            ">Tag</label>
                             <input type="text" name="name" id="name" class="w-full rounded border border-gray-600 py-2
                             " value="{{old('username')}}">
 
@@ -37,13 +37,6 @@
                             @enderror
                            </div>
 
-                           <div class="flex-1 ml-4">
-                            <label for="username" class="cursor-pointer block text-sm mb-1">slug</label>
-                            <input type="text" name="username" id="username" class="w-full rounded border border-gray-600 py-2" value="{{old('username')}}">
-                            @error('username')
-                              <p class="text-red-700 text-sm"></p>
-                            @enderror
-                           </div>
                         </div>
 
                      </div>

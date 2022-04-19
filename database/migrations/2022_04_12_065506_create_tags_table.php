@@ -17,8 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
+
+        //pivot table
+        Schema::create('problems_tags', function (Blueprint $table) {
+            $table->unsignedBigInteger('problem_id');
+            $table->unsignedBigInteger('tag_id');
+        });
+
     }
 
     /**
@@ -29,5 +37,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('tags');
+        Schema::dropIfExists('problems_tags');
     }
 };

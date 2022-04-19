@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Problem;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProblemController extends Controller
 {
@@ -26,7 +30,10 @@ class ProblemController extends Controller
      */
     public function create()
     {
-        return view('admin.problem.create');
+        return view('admin.problem.create')->with([
+            'categories' => Category::where('user_id' ,Auth::id())->orderBy('name','ASC')->get(),
+            'tags' => Tag::orderBy('name','ASC')->get()
+        ]);
     }
 
     /**
@@ -37,7 +44,25 @@ class ProblemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>['required','string','max:255'],
+            'visibility'=>['required','not_in:none'],
+            'category_id'=>['required','not_in:none'],
+        ]);
+
+        $problem = Problem::create([
+            'name' =>$request->name,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+            'visibility' => $request->visibility,
+            'user_id' => Auth::id(),
+            'category_id'=> $request->category_id,
+        ]);
+
+        $problem->tags()->attach($request->tags);
+
+        return redirect()->route('problem.index')->with('success','Createed Successfully');
+
     }
 
     /**
@@ -48,8 +73,9 @@ class ProblemController extends Controller
      */
     public function show(Problem $problem)
     {
-        return view('admin.problem.show')->with([
+        return view('admin.problem.edit')->with([
             'problem' => $problem,
+
 
         ]);
     }
@@ -62,7 +88,9 @@ class ProblemController extends Controller
      */
     public function edit(Problem $problem)
     {
-        //
+        return view('admin.problem.edit')->with([
+            'problem' =>$problem,
+        ]);
     }
 
     /**
@@ -74,7 +102,7 @@ class ProblemController extends Controller
      */
     public function update(Request $request, Problem $problem)
     {
-        //
+        return redirect()->route('problem.index')->with('succcess','Problem Updated');
     }
 
     /**
@@ -85,6 +113,7 @@ class ProblemController extends Controller
      */
     public function destroy(Problem $problem)
     {
-        //
+        $problem->delete();
+        return redirect()->route('problem.index')->with('succcess','Problem Deleted');
     }
 }

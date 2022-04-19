@@ -1,107 +1,147 @@
 @extends('layouts.dashboard')
-
 @section('content')
     <!-- General Report -->
     <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
 
-         <!-- Start Recent Sales -->
-    <div class="card col-span-4 xl:col-span-1">
-        <div class="card-header">Create Problems</div>
-    </div>
-    <!-- End Recent Sales -->
-    </div>
-        <!-- End General Report -->
+        <!-- Start Problems List -->
+        <div class="card col-span-4 xl:col-span-1">
+            <div class="card-heade uppercase pt-6 px-4 flex items-center justify-between">
+                <h2 class="font-semibold ml-2">Create Problem</h2>
+                <a href="{{ route('problem.create') }}" class="btn-bs-primary">Back</a>
+            </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <div class="px-6 py-0 bg-white border-b border-gray-200">
 
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('problem.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mt-6 flex">
-                           <div class=" flex-1 mr-4">
-                            <label for="name" class="formlabel border-2 ">Name</label>
-                            <input type="text" name="name" id="name" class="forminput" value="">
+                            <div class="flex-1">
+                                <label for="name" class="formLabel">Problem Title</label>
+                                <input type="text" name="name" id="name" placeholder="Problem Title" class="formInput"
+                                    value="{{ old('name') }}">
+                                @error('name')
+                                    <p class="text-red-700"></p>
+                                @enderror
+                            </div>
 
-                            @error('name')
-                                <p class="text-red-700 text-sm"></p>
-                            @enderror
-                           </div>
-
-                           <div class="flex-1 ml-4">
-                            <label for="username" class="formlabel">Username</label>
-                            <input type="text" name="username" id="username" class="forminput" value="{{old('username')}}">
-                            @error('username')
-                              <p class="text-red-700 text-sm"></p>
-                            @enderror
-                           </div>
                         </div>
 
-                       <div class="mt-6 flex">
-                          <div class="flex-1 mr-4">
-                            <label for="email" class="formlabel">Email</label>
-                            <input type="text" name="email" id="email" class="forminput" value="">
-                            @error('email')
-                              <p class="text-red-700 text-sm"></p>
-                            @enderror
-                          </div>
+                        <div class="mt-6 flex">
+                            <div class="flex-1 mr-2">
+                                <label for="category_id" class="formLabel">Category</label>
 
-                          <div class=" flex-1 ml-4">
-                            <label for="phone" class="formlabel">Phone</label>
-                            <input type="text" name="phone" id="phone" class="forminput" value="">
-                            @error('phone')
-                              <p class="text-red-700 text-sm"></p>
-                            @enderror
-                          </div>
-                       </div>
+                                <select name="category_id" id="category_id" class="formInput">
+                                    <option value="none">Select Category</option>
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <p class="text-red-700">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-
-                       <div class="mt-6 flex justify-between">
-                          <div class="flex-1 mx-8">
-                            <label for="status" class="formlabel">Status</label>
-                            <select name="status" id="status" class="forminput">
-                                <option value="active" >Active</option>
-                                <option value="inactive"  >Inactive</option>
-                            </select>
-                            @error('status')
-                            <p class="text-red-700 text-sm"></p>
-                          @enderror
-                          </div>
-
-                          <div class=" flex-1 ">
-                              <label for="" class="formlabel">thumbnail</label>
-                            <label for="thumbnail" class="formlabel border-2 rounded-md border-dashed border-emerald-700
-                            py-3 text-center">Click to upload Image</label>
-                            <input type="file" name="thumbnail" id="thumbnail" class="forminput hidden" >
-                            @error('thumbnail')
-                            <p class="text-red-700 text-sm"></p>
-                          @enderror
-                          </div>
-                       </div>
-                       <div class="mt-6 flex justify-between">
-                        <div class=" flex-1">
-                          <label for="description" class="formlabel">Description</label>
-
-                          <textarea name="description" id="description" rows="10" class="forminput">
-                              {{ old('description')}}
-                          </textarea>
-
-                          @error('description')
-                            <p class="text-red-700 text-sm">{{$message}}</p>
-                          @enderror
+                            <div class="flex-1 ml-2">
+                                <label for="visibility" class="formLabel">Visibility</label>
+                                <select name="visibility" id="visibility" class="formInput">
+                                    <option value="none">Select Visibility
+                                    </option>
+                                    <option value="private" {{ old('visibility') == 'private' ? 'selected' : '' }}>Private
+                                    </option>
+                                    <option value="public" {{ old('visibility') == 'public' ? 'selected' : '' }}>
+                                        Public
+                                    </option>
+                                </select>
+                                @error('visibility')
+                                    <p class="text-red-700">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
-                     </div>
+
+                        <div class="mt-6 flex">
+                            <div class="flex-1">
+                                <label for="country" class="formLabel">Description</label>
+
+                                <textarea name="description" id="description" class="formInput">
+                                    </textarea>
+                                @error('description')
+                                    <p class="text-red-700">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex">
+                            <div class="flex-1">
+                                <label for="tags" class="formLabel">Tags</label>
+
+                                @foreach ($tags as $tag)
+                                <input type="checkbox" id="{{ $tag->slug }}" name="tags[]" value="{{ $tag->id }}">
+                                <label for="{{ $tag->slug }}" class="mr-2 cursor-pointer"> {{ $tag->name }}</label>
+                                @endforeach
+
+
+
+                                @error('tags')
+                                    <p class="text-red-700">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="mt-6">
-                            <button type="submit" class="px-4 py-2 text-base uppercase bg-emerald-400 text-white rounded-md">Create</button>
+                            <div class="flex-1 ml-1 mr-1">
+                                <label for="thumbnail" class="formLabel">Thumbnails</label>
+                                <input type="file" name="thumbnail[]" multiple id="thumbnail" class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
+                                @error('thumbnail')
+                                    <p class="text-red-700">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="upload_image_preview flex"></div>
+
+                        <div class="mb-6">
+                            <button type="submit"
+                                class="px-10 py-2 bg-teal-600 text-white rounded mt-3 uppercase text-base">Create</button>
                         </div>
                     </form>
 
                 </div>
             </div>
         </div>
+
     </div>
+    <!-- End General Report -->
+
+@endsection
+
+
+@section('scripts')
+    <script>
+        jQuery(document).ready(function($){
+            CKEDITOR.replace("description");
+        });
+        $(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $($.parseHTML('<img class="m-5" style="width:150px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    };
+    $('#thumbnail').on('change', function() {
+        imagesPreview(this, 'div.upload_image_preview');
+    });
+});
+    </script>
 @endsection

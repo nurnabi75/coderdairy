@@ -30,7 +30,7 @@
                     <td class="border border-l-0 border-b-0 px-4 py-2">{{ $category->name }}</td>
                     <td class="border border-l-0 border-b-0 px-4 py-2 lowercase"> {{ $category->slug }} </td>
                     <td class="border border-l-0 border-b-0 px-4 py-2 capitalize"></td>
-                    <td class="border border-l-0 border-b-0 px-4 py-2 capitalize flex space-x-2 text-xs">
+                    <td class="border border-l-0 border-b-0 px-4 py-2 capitalize flex space-x-2 text-xs ">
                         <a href=" {{ route('category.edit',$category->id) }} " class="btn-bs-primary">Edit</a>
                         <form action="{{ route('category.destroy', $category->id) }}" method="post" onsubmit="return confirm('Do you really want to delete?');">
                             @csrf
