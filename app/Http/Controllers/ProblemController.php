@@ -73,7 +73,7 @@ class ProblemController extends Controller
      */
     public function show(Problem $problem)
     {
-        return view('admin.problem.edit')->with([
+        return view('admin.problem.show')->with([
             'problem' => $problem,
 
 
@@ -90,6 +90,9 @@ class ProblemController extends Controller
     {
         return view('admin.problem.edit')->with([
             'problem' =>$problem,
+            'categories' => Category::where('user_id' ,Auth::id())->orderBy('name','ASC')->get(),
+            'tags' => Tag::orderBy('name','ASC')->get()
+
         ]);
     }
 
@@ -102,7 +105,25 @@ class ProblemController extends Controller
      */
     public function update(Request $request, Problem $problem)
     {
-        return redirect()->route('problem.index')->with('succcess','Problem Updated');
+
+        $request->validate([
+            'name'=>['required','string','max:255'],
+            'visibility'=>['required','not_in:none'],
+            'category_id'=>['required','not_in:none'],
+        ]);
+
+        $problem ->update([
+            'name' =>$request->name,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+            'visibility' => $request->visibility,
+            'user_id' => Auth::id(),
+            'category_id'=> $request->category_id,
+        ]);
+
+        $problem->tags()->sync($request->tags);
+
+        return redirect()->route('problem.index')->with('success','Problem Updated');
     }
 
     /**
@@ -113,7 +134,8 @@ class ProblemController extends Controller
      */
     public function destroy(Problem $problem)
     {
+        $problem->tags()->detach();
         $problem->delete();
-        return redirect()->route('problem.index')->with('succcess','Problem Deleted');
+        return redirect()->route('problem.index')->with('success','Problem Deleted');
     }
 }
