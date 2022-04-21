@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ActivityEvent;
 use App\Models\Category;
 use App\Models\Problem;
 use App\Models\Tag;
@@ -60,6 +61,9 @@ class ProblemController extends Controller
         ]);
 
         $problem->tags()->attach($request->tags);
+
+        //Activity Event Fire
+        //ActivityEvent::dispatch('New Problem Create','Problem',Auth::id());
 
         return redirect()->route('problem.index')->with('success','Createed Successfully');
 

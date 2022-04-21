@@ -38,7 +38,7 @@
                                 <select name="category_id" id="category_id" class="formInput">
                                     <option value="none">Select Category</option>
                                     @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}"{{ $problem->category->id == $category->id ? 'selected' :'' }}>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('category_id')
@@ -68,7 +68,7 @@
                             <div class="flex-1">
                                 <label for="country" class="formLabel">Description</label>
 
-                                <textarea name="description" id="description" class="formInput" value=" {{ $problem->description }} ">
+                                <textarea name="description" id="description" class="formInput" value="old">
                                     </textarea>
                                 @error('description')
                                     <p class="text-red-700">{{ $message }}</p>
@@ -81,12 +81,13 @@
                                 <label for="tags" class="formLabel">Tags</label>
 
                                 @foreach ($tags as $tag)
-                                <input type="checkbox" id="{{ $tag->slug }}" name="tags[]" value="{{ $tag->id }}">
+                                <input type="checkbox" id="{{ $tag->slug }}" name="tags[]" value="{{ $tag->id }}"
+                                @foreach ($problem->tags as $ptag )
+                                    @if ($tag->id == $ptag->id) checked @endif
+                                @endforeach>
+
                                 <label for="{{ $tag->slug }}" class="mr-2 cursor-pointer"> {{ $tag->name }}</label>
                                 @endforeach
-
-
-
                                 @error('tags')
                                     <p class="text-red-700">{{ $message }}</p>
                                 @enderror
