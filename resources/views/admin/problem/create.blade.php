@@ -95,7 +95,7 @@
                         <div class="mt-6">
                             <div class="flex-1 ml-1 mr-1">
                                 <label for="thumbnail" class="formLabel">Thumbnails</label>
-                                <input type="file" name="thumbnail[]" multiple id="thumbnail" class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
+                                <input type="file" name="thumbnails[]" multiple id="thumbnail" class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
                                 @error('thumbnail')
                                     <p class="text-red-700">{{ $message }}</p>
                                 @enderror

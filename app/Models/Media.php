@@ -11,4 +11,13 @@ class Media extends Model
 
     protected $guarded = ['id','created_at','updated_at'];
 
+    //accessor
+    public function getNameAttribute($name)
+    {
+       if(str_starts_with($name,'http')){
+           return $name;
+       }else{
+           return asset('storage/uploads/' .$name);
+       }
+    }
 }

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Events\ActivityEvent;
 use App\Models\Category;
+use App\Models\Media;
 use App\Models\Problem;
+use App\Models\Solution;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProblemController extends Controller
@@ -62,6 +65,20 @@ class ProblemController extends Controller
 
         $problem->tags()->attach($request->tags);
 
+        if(!empty($request->file('thumbnails'))){
+            foreach($request->thumbnails as $thumb){
+                $image = time() . '_' .$thumb->getClientOriginalName();
+                $thumb->storeAs('public/uploads',$image);
+                //Storage::put('public/uploads',$image);
+
+                Media::create([
+                    'name'       => $image,
+                    'user_id'    => Auth::id(),
+                    'problem_id' => $problem->id,
+                ]);
+            }
+        }
+
         //Activity Event Fire
         //ActivityEvent::dispatch('New Problem Create','Problem',Auth::id());
 
@@ -79,8 +96,7 @@ class ProblemController extends Controller
     {
         return view('admin.problem.show')->with([
             'problem' => $problem,
-
-
+            'solutions' => Solution::where('problem_id',$problem->id)->where('user_id',Auth::id())->latest()->get()
         ]);
     }
 
