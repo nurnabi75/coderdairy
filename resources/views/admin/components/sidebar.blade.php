@@ -24,6 +24,14 @@
       <!-- end link -->
 
       <!-- link -->
+      <a href=" {{route('solution.index')}}  " class="mb-3 capitalize font-medium text-sm hover:text-teal-600
+      transition ease-in-out duration-500 {{ request()->routeIs('solution.*') ? 'text-teal-600' : '' }} ">
+        <i class="fad fa-chart-pie text-xs mr-2"></i>
+        Solution
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
       <a href=" {{route('activity.index')}} " class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition
       ease-in-out duration-500 {{ request()->routeIs('activity.*') ? 'text-teal-600' : '' }} ">
         <i class="fad fa-shopping-cart text-xs mr-2"></i>

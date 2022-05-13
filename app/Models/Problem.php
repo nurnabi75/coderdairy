@@ -22,6 +22,11 @@ class Problem extends Model
     {
         return $this->belongsToMany(Tag::class,'problems_tags','problem_id','tag_id');
     }
+    //solution
+    public function solutions()
+    {
+        return $this->hasMany(Solution::class,);
+    }
 
     public function media()
     {

@@ -24,6 +24,7 @@
                     <th class="px-4 py-2 border-r">Visivility</th>
                     <th class="px-4 py-2 border-r">Category</th>
                     <th class="px-4 py-2 border-r">Tags</th>
+                    <th class="px-4 py-2 border-r">Solutions</th>
                     <th class="px-4 py-2 border-r">Actions</th>
                 </tr>
             </thead>
@@ -40,6 +41,9 @@
                         @foreach ($problem->tags as $tag )
                            <a href="#" class="text-xs bg-teal-600 text-white rounded-sm px-2 py-1 ">{{ $tag->name }}</a>
                         @endforeach
+                    </td>
+                    <td class="border border-l-0 px-4 py-2 ">
+                        {{ count($problem->solutions) }}
                     </td>
                     <td class="border border-l-0 px-4 py-2 ">
                         <div class="capitalize flex space-x-2 text-xs">

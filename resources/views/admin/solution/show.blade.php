@@ -8,7 +8,7 @@
             <!-- header -->
             <div class="p-5 border-b flex justify-between items-center">
                 <h2 class="text-xl">{{ $problem->name }}</h2>
-                <a href="{{ route('solution.create') }}?problem_id={{ $problem->id }}" class="btn-shadow">Add Solution</a>
+                <a href="" class="btn-shadow">Add Solution</a>
                 <a href="{{ route('problem.index') }}" class="btn-shadow">Back</a>
             </div>
             <!-- end header -->
@@ -157,10 +157,9 @@
                     <div class="grid gap-2 grid-flow-row grid-cols-3 problem-gallery">
 
                         @foreach ($solution->media as $media)
-                            {{-- <a href="{{ $media->name['url'] }}">
+                            <a href="{{ $media->name['url'] }}">
                                 <img src="{{ $media->name['url'] }}" class="m-1" alt="">
-                            </a> --}}
-
+                            </a>
                         @endforeach
                     </div>
                 </div>

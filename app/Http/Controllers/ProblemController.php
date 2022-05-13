@@ -143,6 +143,20 @@ class ProblemController extends Controller
 
         $problem->tags()->sync($request->tags);
 
+        if(!empty($request->file('thumbnails'))){
+            foreach ($request->thumbnails as $thumb) {
+                $image = time() . '-' . $thumb->getClientOriginalName();
+                $thumb->storeAs('public/uploads',$image);
+                // Storage::put('public/upload',$image);
+
+                Media::create([
+                'name'          => $image,
+                'user_id'       => Auth::id(),
+                'solution_id'    => $problem->id
+                ]);
+            }
+        }
+
         return redirect()->route('problem.index')->with('success','Problem Updated');
     }
 
