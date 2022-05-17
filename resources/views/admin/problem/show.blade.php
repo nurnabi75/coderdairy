@@ -157,9 +157,9 @@
                     <div class="grid gap-2 grid-flow-row grid-cols-3 problem-gallery">
 
                         @foreach ($solution->media as $media)
-                            {{-- <a href="{{ $media->name['url'] }}">
+                            <a href="{{ $media->name['url'] }}">
                                 <img src="{{ $media->name['url'] }}" class="m-1" alt="">
-                            </a> --}}
+                            </a>
 
                         @endforeach
                     </div>

@@ -41,6 +41,7 @@
    <script src="{{ asset('admin/js/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('admin/js/jquery.dm-uploader.min.js') }}"></script>
     <script src="{{ asset('admin/js/scripts.js') }}"></script>
+    <script src="{{ asset('admin/js/custom.js') }}"></script>
 <!-- end script -->
      @yield('scripts')
 </body>
