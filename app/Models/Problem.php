@@ -25,7 +25,7 @@ class Problem extends Model
     //solution
     public function solutions()
     {
-        return $this->hasMany(Solution::class,);
+        return $this->hasMany(Solution::class);
     }
 
     public function media()

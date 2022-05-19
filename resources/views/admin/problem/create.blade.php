@@ -77,7 +77,10 @@
 
                         <div class="mt-6 flex">
                             <div class="flex-1">
-                                <label for="tags" class="formLabel">Tags</label>
+                                <label for="tags" class="formLabel">
+                                    Tags
+                                    <a href="#add_new_tag_dialog" class="popup-move-anim text-teal-600 text-sm ml-5">Add New Tag</a>
+                                </label>
 
                                 @foreach ($tags as $tag)
                                 <input type="checkbox" id="{{ $tag->slug }}" name="tags[]" value="{{ $tag->id }}">
